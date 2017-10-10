@@ -56,7 +56,9 @@ class Connection extends Thread {
 				}else {
 					// Invio la risposta al client
 					//TODO creare stringhe per muta autenticazione
-					
+					//TODO data da generare correttamente, DA CAMBIARE
+					String data = "test";
+					String temp = generateHMac(clientToServeData.getSharedSecret(), data);
 					
 					firstMexSend = clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
 					System.out.println(Settings.SEND_LABEL+firstMexSend+Settings.NEW_LINE);
