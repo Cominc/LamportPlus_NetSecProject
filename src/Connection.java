@@ -4,10 +4,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashMap;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 
 class Connection extends Thread {
@@ -51,6 +55,9 @@ class Connection extends Thread {
 					out.println(MEX_NEW_SETUP_NEEDED);
 				}else {
 					// Invio la risposta al client
+					//TODO creare stringhe per muta autenticazione
+					
+					
 					firstMexSend = clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
 					System.out.println(Settings.SEND_LABEL+firstMexSend+Settings.NEW_LINE);
 					out.println(firstMexSend);
@@ -107,5 +114,26 @@ class Connection extends Thread {
 			e.printStackTrace();
 		}
 		return hash;
+	}
+	
+	//TODO codice da controllare
+	private String generateHMac(String key, String data) {
+		Mac hMac;
+		String resBase64 = "";
+		try {
+			hMac = Mac.getInstance(Settings.HMAC_ALG_CHOOSED);
+			//byte[] hmacKeyBytes = key.getBytes(StandardCharsets.UTF_8);
+			byte[] hmacKeyBytes = key.getBytes();
+			SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, Settings.HMAC_ALG_CHOOSED);
+			hMac.init(secretKey);
+			//byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
+			byte[] dataBytes = data.getBytes();
+			byte[] res = hMac.doFinal(dataBytes);
+			resBase64 = Base64.getEncoder().encodeToString(res);
+		} catch (NoSuchAlgorithmException | InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resBase64;
 	}
 }
