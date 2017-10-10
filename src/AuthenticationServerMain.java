@@ -11,7 +11,7 @@ public class AuthenticationServerMain {
 	public static void main(String[] args)
 	{
 		HashMap<String, Entry> clients = new HashMap<>();
-		Entry alice_data = new Entry(2, "E1F53135E559C253", "wR+EoB2aPC35/KQxJpN1rSh4nPE44Kzp5af6FjOgBvoNc+S3h7LYCphJvEJ689tCjr9PKPjDYmFzcp5WbKTeKQ==");
+		Entry alice_data = new Entry(2, "E1F53135E559C253", "wR+EoB2aPC35/KQxJpN1rSh4nPE44Kzp5af6FjOgBvoNc+S3h7LYCphJvEJ689tCjr9PKPjDYmFzcp5WbKTeKQ==", "sgrd");
 		clients.put("Alice", alice_data);
 		try
 		{

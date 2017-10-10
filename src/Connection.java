@@ -59,10 +59,10 @@ class Connection extends Thread {
 					String secondMexRecived = in.readLine();
 					System.out.println(Settings.RECIVE_LABEL+secondMexRecived+Settings.NEW_LINE);
 					
-					if(clientToServeData.getHash_n().equals(computeHash(secondMexRecived))) {
+					if(clientToServeData.getHashN().equals(computeHash(secondMexRecived))) {
 						// Autenticazione effettuata con successo, aggiorno i dati del client sul server
 						clientToServeData.setN(clientToServeData.getN()-1);
-						clientToServeData.setHash_n(secondMexRecived);
+						clientToServeData.setHashN(secondMexRecived);
 						clients.replace(firstMexRecived, clientToServeData);
 						
 						// Comunico l'esito positivo al client
