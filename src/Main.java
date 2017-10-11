@@ -2,16 +2,19 @@ import java.util.Scanner;
 
 public class Main {
 	
-	private static final String PASSWORD_ALICE = "alice_pwd";
 	
 	public static void main(String[] args) {
-		Client alice = new Client("Alice",PASSWORD_ALICE,"alice_shared_key");
+		//String salt = "E1F53135E559C253";
+		//Client client = new Client("Alice","alice_pwd","alice_shared_key");
+		String salt = "84B03D034B409D4E";
+		Client client = new Client("Carol","carol_pwd","carol_shared_key");
 		int n;
 		Scanner reader = new Scanner(System.in);
 		do{
 			System.out.println("Enter a number: ");
 			n = reader.nextInt();
-			System.out.println(alice.computeHashN(n, "E1F53135E559C253"));
+			System.out.println(client.computeHashN(n, salt));
+			System.out.println(client.computeHMAC(System.currentTimeMillis()+""));
 		}while(n!=0);
 		reader.close();
 	}

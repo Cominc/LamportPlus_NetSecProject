@@ -11,8 +11,10 @@ public class AuthenticationServerMain {
 	public static void main(String[] args)
 	{
 		HashMap<String, Entry> clients = new HashMap<>();
-		Entry alice_data = new Entry(2, "E1F53135E559C253", "wR+EoB2aPC35/KQxJpN1rSh4nPE44Kzp5af6FjOgBvoNc+S3h7LYCphJvEJ689tCjr9PKPjDYmFzcp5WbKTeKQ==", "alice_shared_key2");
+		Entry alice_data = new Entry(2, "E1F53135E559C253", "wR+EoB2aPC35/KQxJpN1rSh4nPE44Kzp5af6FjOgBvoNc+S3h7LYCphJvEJ689tCjr9PKPjDYmFzcp5WbKTeKQ==", "alice_shared_key");
+		Entry carol_data = new Entry(3, "84B03D034B409D4E", "c18rAnlDfUuAicjqO1kHjAAUneAZslS9MDlQUtI7pq+XTMhWGSIsRy+EUwV2wYBoQMMM6GWd4ZWaOxLtJKg6fg==", "wrong_carol_shared_key");
 		clients.put("Alice", alice_data);
+		clients.put("Carol", carol_data);
 		try
 		{
 			ServerSocket server = new ServerSocket(PORT);

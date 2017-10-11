@@ -55,8 +55,8 @@ class Connection extends Thread {
 					out.println(MEX_NEW_SETUP_NEEDED);
 				}else {
 					// Invio la risposta al client
-					//TODO creare stringhe per autenticazione del server verso il client
 					
+					//Creazione stringhe per l'autenticazione del server verso il client
 					String timeStamp = 	System.currentTimeMillis()+"";
 					String hmac = computeHMAC(clientToServeData.getSharedKey(), timeStamp);
 					

@@ -23,6 +23,8 @@ public class ClientMain {
 		Client client = new Client("Alice","alice_pwd","alice_shared_key");
 		// Bob cerca di autenticarsi senza essere registrato sull'AS
 		//Client client = new Client("Bob","bob_pwd","bob_shared_key");
+		// Carol cerca di autenticarsi essendo registrata sull'AS che non ha carol_shared_key
+        //Client client = new Client("Carol","carol_pwd","carol_shared_key");
 		// Trudy cerca di autenticarsi come Alice ma senza conoscerne la password
 		//Client client = new Client("Alice","trudy_pwd","trudy_shared_key");
 		try
