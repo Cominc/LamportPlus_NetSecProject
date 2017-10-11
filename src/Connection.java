@@ -69,7 +69,8 @@ class Connection extends Thread {
 					String secondMexRecived = in.readLine();
 					System.out.println(Settings.RECIVE_LABEL+secondMexRecived+Settings.NEW_LINE);
 					
-					if(clientToServeData.getHashN().equals(computeHash(secondMexRecived))) {
+					//TODO gestire eventuale chiusura stream da parte del client (accade se il server non viene autenticato)
+					if(secondMexRecived!= null&&clientToServeData.getHashN().equals(computeHash(secondMexRecived))) {
 						// Autenticazione effettuata con successo, aggiorno i dati del client sul server
 						clientToServeData.setN(clientToServeData.getN()-1);
 						clientToServeData.setHashN(secondMexRecived);
