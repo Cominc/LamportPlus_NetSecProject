@@ -57,7 +57,7 @@ class Connection extends Thread {
 					//TODO creare stringhe per autenticazione del server verso il client
 					
 					String timeStamp = 	System.currentTimeMillis()+"";
-					String hmac = generateHMac(clientToServeData.getSharedKey(), timeStamp);
+					String hmac = computeHMAC(clientToServeData.getSharedKey(), timeStamp);
 					
 					firstMexSend = timeStamp+Settings.SEPARATOR+hmac+Settings.SEPARATOR+clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
 					System.out.println(Settings.SEND_LABEL+firstMexSend+Settings.NEW_LINE);
@@ -118,7 +118,7 @@ class Connection extends Thread {
 	}
 	
 	//TODO codice da controllare
-	private String generateHMac(String key, String data) {
+	private String computeHMAC(String key, String data) {
 		Mac hMac;
 		String resBase64 = "";
 		try {

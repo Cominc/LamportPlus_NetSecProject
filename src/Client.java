@@ -59,7 +59,7 @@ public class Client {
 		return hashN;
 	}
 	
-	private String generateHMac(String data) {
+	private String computeHMAC(String data) {
 		Mac hMac;
 		String resBase64 = "";
 		try {
