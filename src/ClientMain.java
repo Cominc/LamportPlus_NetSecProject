@@ -16,6 +16,7 @@ public class ClientMain {
 	private final static String CLIENT_START = "Client ready.\n";
 	private final static String AS_AUTH_OK = "Server authentication success.\n";
 	private final static String AS_AUTH_KO = "Server authentication fail.\n";
+	private final static String ERROR_NO_NUMBER = "Error: non-numeric parameter received when a number is required.\n";
 	
 	public static void main(String[] args) {
 		
@@ -29,6 +30,7 @@ public class ClientMain {
 		//Client client = new Client("Alice","trudy_pwd","trudy_shared_key");
 		try
 		{
+			//TODO gestire se si lancia prima il client del server (far terminare senza crash)
 			//Creazione socket 
 			InetAddress address = InetAddress.getByName(AS_ADDRESS);
 			Socket clientSocket = new Socket(address, PORT);
@@ -50,6 +52,7 @@ public class ClientMain {
 			
 			//Estrazione dal messaggio ricevuto dei parametri n,salt,timestamp,HMAC(timestamp) (sono separati dal carattere separatore)
 			if((serverResponse.length() - serverResponse.replace(Settings.SEPARATOR, "").length())==3){
+				//TODO rinominare oppure usare direttamente serverResponse
 				String strTemp = serverResponse;
 				String timeStamp = strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR));
 				strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
@@ -58,19 +61,24 @@ public class ClientMain {
 				if(client.computeHMAC(timeStamp).equals(hmac))
 				{	
 					System.out.println(AS_AUTH_OK);
-					int n = Integer.parseInt(strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR)));
-					strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
-					String salt = new String(Base64.getDecoder().decode(strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length())));
-					
-					String hash = client.computeHashN(n-1, salt);
-					
-					// Invio messaggio con la risposta al server
-					out.println(hash);
-					System.out.println(Settings.SEND_LABEL+hash+Settings.NEW_LINE);
-					
-					//Esito autenticazione
-					serverResponse = in.readLine();
-					System.out.println(Settings.RECIVE_LABEL+serverResponse+Settings.NEW_LINE);
+					try {  
+						int n = Integer.parseInt(strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR)));
+						strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
+						String salt = new String(Base64.getDecoder().decode(strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length())));
+						
+						String hash = client.computeHashN(n-1, salt);
+						
+						// Invio messaggio con la risposta al server
+						out.println(hash);
+						System.out.println(Settings.SEND_LABEL+hash+Settings.NEW_LINE);
+						
+						//Esito autenticazione
+						serverResponse = in.readLine();
+						System.out.println(Settings.RECIVE_LABEL+serverResponse+Settings.NEW_LINE);
+					}  
+					catch(NumberFormatException nfe)  {  
+						System.out.println(ERROR_NO_NUMBER); 
+					}  
 				}else {
 					System.out.println(AS_AUTH_KO);
 				}
