@@ -9,7 +9,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashMap;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -58,9 +57,9 @@ class Connection extends Thread {
 					//TODO creare stringhe per muta autenticazione
 					//TODO data da generare correttamente, DA CAMBIARE
 					String data = "test";
-					String temp = generateHMac(clientToServeData.getSharedSecret(), data);
+					String hmac = generateHMac(clientToServeData.getSharedSecret(), data);
 					
-					firstMexSend = clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
+					firstMexSend = data+Settings.SEPARATOR+hmac+Settings.SEPARATOR+clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
 					System.out.println(Settings.SEND_LABEL+firstMexSend+Settings.NEW_LINE);
 					out.println(firstMexSend);
 					
