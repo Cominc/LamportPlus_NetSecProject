@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashMap;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -59,7 +60,8 @@ class Connection extends Thread {
 					String timeStamp = 	System.currentTimeMillis()+"";
 					String hmac = computeHMAC(clientToServeData.getSharedKey(), timeStamp);
 					
-					firstMexSend = timeStamp+Settings.SEPARATOR+hmac+Settings.SEPARATOR+clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
+					String saltBase64 = Base64.getEncoder().encodeToString(clientToServeData.getSalt().getBytes());
+					firstMexSend = timeStamp+Settings.SEPARATOR+hmac+Settings.SEPARATOR+clientToServeData.getN()+Settings.SEPARATOR+saltBase64;
 					System.out.println(Settings.SEND_LABEL+firstMexSend+Settings.NEW_LINE);
 					out.println(firstMexSend);
 					

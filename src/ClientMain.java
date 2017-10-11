@@ -5,6 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Base64;
 
 
 public class ClientMain {
@@ -44,7 +45,7 @@ public class ClientMain {
 			
 			//Estrazione dal messaggio ricevuto dei parametri n e salt (sono separati dal carattere separatore)
 			if(serverResponse.contains(Settings.SEPARATOR)){
-				String salt = serverResponse.substring(serverResponse.indexOf(Settings.SEPARATOR)+1);
+				String salt = new String(Base64.getDecoder().decode(serverResponse.substring(serverResponse.indexOf(Settings.SEPARATOR)+1)));
 				int n = Integer.parseInt(serverResponse.substring(0,serverResponse.indexOf(Settings.SEPARATOR)));
 
 				String hash = client.computeHashN(n-1, salt);
