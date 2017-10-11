@@ -54,12 +54,12 @@ class Connection extends Thread {
 					out.println(MEX_NEW_SETUP_NEEDED);
 				}else {
 					// Invio la risposta al client
-					//TODO creare stringhe per muta autenticazione
-					//TODO data da generare correttamente, DA CAMBIARE
-					String data = "test";
-					String hmac = generateHMac(clientToServeData.getSharedSecret(), data);
+					//TODO creare stringhe per autenticazione del server verso il client
 					
-					firstMexSend = data+Settings.SEPARATOR+hmac+Settings.SEPARATOR+clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
+					String timeStamp = 	System.currentTimeMillis()+"";
+					String hmac = generateHMac(clientToServeData.getSharedKey(), timeStamp);
+					
+					firstMexSend = timeStamp+Settings.SEPARATOR+hmac+Settings.SEPARATOR+clientToServeData.getN()+Settings.SEPARATOR+clientToServeData.getSalt();
 					System.out.println(Settings.SEND_LABEL+firstMexSend+Settings.NEW_LINE);
 					out.println(firstMexSend);
 					

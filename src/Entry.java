@@ -4,14 +4,14 @@ public class Entry {
 	private int n;
 	private String salt;
 	private String hashN;
-	private String sharedSecret;
+	private String sharedKey;
 
-	public Entry(int n, String salt, String hashN, String sharedSecret) {
+	public Entry(int n, String salt, String hashN, String sharedKey) {
 		super();
 		this.n = n;
 		this.salt = salt;
 		this.hashN = hashN;
-		this.sharedSecret = sharedSecret;
+		this.sharedKey = sharedKey;
 	}
 	
 	public int getN() {
@@ -38,12 +38,12 @@ public class Entry {
 		this.hashN = hashN;
 	}
 
-	public String getSharedSecret() {
-		return sharedSecret;
+	public String getSharedKey() {
+		return sharedKey;
 	}
 
-	public void setSharedSecret(String sharedSecret) {
-		this.sharedSecret = sharedSecret;
+	public void setSharedKey(String sharedKey) {
+		this.sharedKey = sharedKey;
 	}
 	
 	

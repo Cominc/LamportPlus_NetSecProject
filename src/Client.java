@@ -1,18 +1,22 @@
-import java.io.*;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
-public class Client implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+public class Client {
+
 	private String name;
 	private String password;
+	private String sharedKey;
 	
-	public Client(String name, String password) {
+	public Client(String name, String password, String sharedKey) {
 		this.name = name;
 		this.password = password;
+		this.sharedKey = sharedKey;
 	}
 
 	public String getName() {
@@ -31,6 +35,14 @@ public class Client implements Serializable {
 		this.password = password;
 	}
 	
+	public String getSharedKey() {
+		return sharedKey;
+	}
+
+	public void setSharedKey(String sharedKey) {
+		this.sharedKey = sharedKey;
+	}
+
 	public String computeHashN(int n, String salt) {
 		MessageDigest md;
 		String hashN ="";
@@ -45,6 +57,26 @@ public class Client implements Serializable {
 			e.printStackTrace();
 		}
 		return hashN;
+	}
+	
+	private String generateHMac(String data) {
+		Mac hMac;
+		String resBase64 = "";
+		try {
+			hMac = Mac.getInstance(Settings.HMAC_ALG_CHOOSED);
+			//byte[] hmacKeyBytes = key.getBytes(StandardCharsets.UTF_8);
+			byte[] hmacKeyBytes = sharedKey.getBytes();
+			SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, Settings.HMAC_ALG_CHOOSED);
+			hMac.init(secretKey);
+			//byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
+			byte[] dataBytes = data.getBytes();
+			byte[] res = hMac.doFinal(dataBytes);
+			resBase64 = Base64.getEncoder().encodeToString(res);
+		} catch (NoSuchAlgorithmException | InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resBase64;
 	}
 	
 }

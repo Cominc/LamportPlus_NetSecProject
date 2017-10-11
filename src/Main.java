@@ -5,7 +5,7 @@ public class Main {
 	private static final String PASSWORD_ALICE = "alice_pwd";
 	
 	public static void main(String[] args) {
-		Client alice = new Client("Alice",PASSWORD_ALICE);
+		Client alice = new Client("Alice",PASSWORD_ALICE,"alice_shared_key");
 		int n;
 		Scanner reader = new Scanner(System.in);
 		do{

@@ -17,7 +17,7 @@ public class ClientMain {
 	public static void main(String[] args) {
 		
 		// Alice cerca di autenticarsi essendo registrata sull'AS
-		Client client = new Client("Alice","alice_pwd");
+		Client client = new Client("Alice","alice_pwd","alice_shared_key");
 		// Bob cerca di autenticarsi senza essere registrato sull'AS
 		//Client client = new Client("Bob","bob_pwd");
 		// Trudy cerca di autenticarsi come Alice ma senza conoscerne la password
