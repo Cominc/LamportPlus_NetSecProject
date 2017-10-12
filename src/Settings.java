@@ -1,6 +1,8 @@
 
 public class Settings {
 	
+	public static final long DELTA = 5000;
+	
 	public static final String HASH_ALG_CHOOSED = "SHA-512";
 	public static final String HMAC_ALG_CHOOSED = "HmacSHA256";
 	public final static String SEPARATOR = ":";

@@ -58,7 +58,8 @@ public class ClientMain {
 				strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
 				String hmac = strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR));
 				strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
-				if(client.computeHMAC(timeStamp).equals(hmac))
+				
+				if(checkTimestamp(timeStamp)&&client.computeHMAC(timeStamp).equals(hmac))
 				{	
 					System.out.println(AS_AUTH_OK);
 					try {  
@@ -91,5 +92,15 @@ public class ClientMain {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	private static boolean checkTimestamp(String timestamp) {
+		long timestampNow = System.currentTimeMillis();
+		long timestampRecived = Long.parseLong(timestamp);
+		// (timestampNow-DELTA) <= timestampRecived <= (timestampNow+DELTA)
+		if(timestampRecived >= (timestampNow-Settings.DELTA) && timestampRecived <= (timestampNow+Settings.DELTA))
+			return true;
+		else
+			return false;
 	}
 }
