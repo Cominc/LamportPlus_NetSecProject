@@ -64,11 +64,9 @@ public class Client {
 		String resBase64 = "";
 		try {
 			hMac = Mac.getInstance(Settings.HMAC_ALG_CHOOSED);
-			//byte[] hmacKeyBytes = key.getBytes(StandardCharsets.UTF_8);
 			byte[] hmacKeyBytes = sharedKey.getBytes();
 			SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, Settings.HMAC_ALG_CHOOSED);
 			hMac.init(secretKey);
-			//byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
 			byte[] dataBytes = data.getBytes();
 			byte[] res = hMac.doFinal(dataBytes);
 			resBase64 = Base64.getEncoder().encodeToString(res);

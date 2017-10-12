@@ -16,7 +16,7 @@ public class ClientMain {
 	private final static String CLIENT_START = "Client ready.\n";
 	private final static String AS_AUTH_OK = "Server authentication success.\n";
 	private final static String AS_AUTH_KO = "Server authentication fail.\n";
-	private final static String ERROR_NO_NUMBER = "Error: non-numeric parameter received when a number is required.\n";
+	private final static String ERR_NO_NUMBER = "Error: non-numeric parameter received when a number is required.\n";
 	
 	public static void main(String[] args) {
 		
@@ -78,7 +78,7 @@ public class ClientMain {
 						System.out.println(Settings.RECIVE_LABEL+serverResponse+Settings.NEW_LINE);
 					}  
 					catch(NumberFormatException nfe)  {  
-						System.out.println(ERROR_NO_NUMBER); 
+						System.out.println(ERR_NO_NUMBER); 
 					}  
 				}else {
 					System.out.println(AS_AUTH_KO);

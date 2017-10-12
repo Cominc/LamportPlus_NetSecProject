@@ -70,6 +70,7 @@ class Connection extends Thread {
 					System.out.println(Settings.RECIVE_LABEL+secondMexRecived+Settings.NEW_LINE);
 					
 					//TODO gestire eventuale chiusura stream da parte del client (accade se il server non viene autenticato)
+					//attualmente invio comunque "Authentication fail.", non serve
 					if(secondMexRecived!= null&&clientToServeData.getHashN().equals(computeHash(secondMexRecived))) {
 						// Autenticazione effettuata con successo, aggiorno i dati del client sul server
 						clientToServeData.setN(clientToServeData.getN()-1);
@@ -120,17 +121,14 @@ class Connection extends Thread {
 		return hash;
 	}
 	
-	//TODO codice da controllare
 	private String computeHMAC(String key, String data) {
 		Mac hMac;
 		String resBase64 = "";
 		try {
 			hMac = Mac.getInstance(Settings.HMAC_ALG_CHOOSED);
-			//byte[] hmacKeyBytes = key.getBytes(StandardCharsets.UTF_8);
 			byte[] hmacKeyBytes = key.getBytes();
 			SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, Settings.HMAC_ALG_CHOOSED);
 			hMac.init(secretKey);
-			//byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
 			byte[] dataBytes = data.getBytes();
 			byte[] res = hMac.doFinal(dataBytes);
 			resBase64 = Base64.getEncoder().encodeToString(res);
