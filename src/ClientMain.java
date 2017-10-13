@@ -27,7 +27,7 @@ public class ClientMain {
 		// Carol cerca di autenticarsi essendo registrata sull'AS che non ha carol_shared_key
         //Client client = new Client("Carol","carol_pwd","carol_shared_key");
 		// Trudy cerca di autenticarsi come Alice ma senza conoscerne la password
-		//Client client = new Client("Alice","trudy_pwd","trudy_shared_key");
+		//Client client = new Client("Alice","trudy_pwd","alice_shared_key");
 		try
 		{
 			//TODO gestire se si lancia prima il client del server (far terminare senza crash)
