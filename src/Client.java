@@ -53,7 +53,6 @@ public class Client {
 				array = md.digest(array); 
 			hashN = Base64.getEncoder().encodeToString(array);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return hashN;
@@ -71,7 +70,6 @@ public class Client {
 			byte[] res = hMac.doFinal(dataBytes);
 			resBase64 = Base64.getEncoder().encodeToString(res);
 		} catch (NoSuchAlgorithmException | InvalidKeyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resBase64;

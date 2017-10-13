@@ -13,7 +13,7 @@ public class ClientMain {
 	private final static String AS_ADDRESS = "localhost";
 	private final static int PORT = 31;
 	
-	private final static String CLIENT_START = "Client ready.\n";
+	private final static String CLIENT_START = "Client ready\n";
 	private final static String AS_AUTH_OK = "Server authentication success.\n";
 	private final static String AS_AUTH_KO = "Server authentication fail.\n";
 	private final static String ERR_NO_NUMBER = "Error: non-numeric parameter received when a number is required.\n";
@@ -43,6 +43,7 @@ public class ClientMain {
 			
 			// Invio messaggio con la propria identità
 			out.println(client.getName());
+			out.flush();
 			System.out.println(Settings.SEND_LABEL+client.getName()+Settings.NEW_LINE);
 			
 			//Ricezione risposta dal server
@@ -71,6 +72,7 @@ public class ClientMain {
 						
 						// Invio messaggio con la risposta al server
 						out.println(hash);
+						out.flush();
 						System.out.println(Settings.SEND_LABEL+hash+Settings.NEW_LINE);
 						
 						//Esito autenticazione
