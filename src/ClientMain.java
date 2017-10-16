@@ -30,7 +30,6 @@ public class ClientMain {
 		//Client client = new Client("Alice","trudy_pwd","alice_shared_key");
 		try
 		{
-			//TODO gestire se si lancia prima il client del server (far terminare senza crash)
 			//Creazione socket 
 			InetAddress address = InetAddress.getByName(AS_ADDRESS);
 			Socket clientSocket = new Socket(address, PORT);
