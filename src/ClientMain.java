@@ -50,23 +50,18 @@ public class ClientMain {
 			String serverResponse = in.readLine();
 			System.out.println(Settings.RECIVE_LABEL+serverResponse+Settings.NEW_LINE);
 			
-			
+			String[] serverResponseParametes = serverResponse.split(Settings.SEPARATOR);
 			//Estrazione dal messaggio ricevuto dei parametri n,salt,timestamp,HMAC(timestamp) (sono separati dal carattere separatore)
-			if((serverResponse.length() - serverResponse.replace(Settings.SEPARATOR, "").length())==3){
-				//TODO rinominare oppure usare direttamente serverResponse
-				String strTemp = serverResponse;
-				String timeStamp = strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR));
-				strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
-				String hmac = strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR));
-				strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
+			if(serverResponseParametes.length==4){
+				String timeStamp = serverResponseParametes[0];
+				String hmac = serverResponseParametes[1];
 				
 				if(checkTimestamp(timeStamp)&&client.computeHMAC(timeStamp).equals(hmac))
 				{	
 					System.out.println(AS_AUTH_OK);
 					try {  
-						int n = Integer.parseInt(strTemp.substring(0,strTemp.indexOf(Settings.SEPARATOR)));
-						strTemp = strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length());
-						String salt = new String(Base64.getDecoder().decode(strTemp.substring(strTemp.indexOf(Settings.SEPARATOR)+1,strTemp.length())));
+						int n = Integer.parseInt(serverResponseParametes[2]);
+						String salt = new String(Base64.getDecoder().decode(serverResponseParametes[3]));
 						
 						String hash = client.computeHashN(n-1, salt);
 						
